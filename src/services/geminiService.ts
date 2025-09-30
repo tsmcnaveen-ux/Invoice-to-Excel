@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 
 const CSV_HEADER = "Sr. No.,Date,Invoice No.,Item Name,HSN Code,GST Rate,Quantity,Unit,Unit Price/Unit,Taxable Amount,SGST,CGST,IGST Amount,Total Amount,Item Group,Purchase Ledger Type,Party GSTIN,Party Name,State";
@@ -58,9 +59,10 @@ const fileToGenerativePart = async (file: File) => {
 };
 
 export const extractInvoiceData = async (file: File): Promise<string> => {
-    // FIX: Per coding guidelines, the API key must be read from `process.env.API_KEY`
-    // and the GoogleGenAI client should be initialized directly with it.
-    // This change corrects the TypeScript error and adheres to the API key handling requirements.
+    // FIX: The API key must be obtained from `process.env.API_KEY` as per the coding guidelines.
+    if (!process.env.API_KEY) {
+      throw new Error("API_KEY environment variable is not set");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     const imagePart = await fileToGenerativePart(file);
@@ -71,7 +73,8 @@ export const extractInvoiceData = async (file: File): Promise<string> => {
         contents: { parts: [imagePart, textPart] },
     });
 
-    const modelResponse = response.text?.trim();
+    // FIX: The .text property is the recommended way to get the text response and is not nullable.
+    const modelResponse = response.text.trim();
     if (!modelResponse) {
       return "";
     }
