@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { Status } from './types';
 import { extractInvoiceData } from './services/geminiService';

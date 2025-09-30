@@ -58,9 +58,9 @@ const fileToGenerativePart = async (file: File) => {
 };
 
 export const extractInvoiceData = async (file: File): Promise<string> => {
-    if (!process.env.API_KEY) {
-      throw new Error("API_KEY environment variable is not set");
-    }
+    // FIX: Per coding guidelines, the API key must be read from `process.env.API_KEY`
+    // and the GoogleGenAI client should be initialized directly with it.
+    // This change corrects the TypeScript error and adheres to the API key handling requirements.
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     const imagePart = await fileToGenerativePart(file);
