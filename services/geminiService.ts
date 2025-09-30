@@ -71,7 +71,8 @@ export const extractInvoiceData = async (file: File): Promise<string> => {
         contents: { parts: [imagePart, textPart] },
     });
 
-    const modelResponse = response.text?.trim();
+    // FIX: Per coding guidelines, access the 'text' property directly.
+    const modelResponse = response.text.trim();
     if (!modelResponse) {
       return "";
     }
