@@ -1,0 +1,5 @@
+{
+  "name": "GST Invoice Extractor",
+  "description": "An intelligent tool to extract data from Indian GST-compliant purchase invoices. Upload an invoice image, and the application will analyze it, apply GST logic, and provide the extracted data in a structured CSV format, ready for download or copying.",
+  "requestFramePermissions": []
+}
