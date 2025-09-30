@@ -58,10 +58,6 @@ const fileToGenerativePart = async (file: File) => {
 };
 
 export const extractInvoiceData = async (file: File): Promise<string> => {
-    if (!process.env.API_KEY) {
-        throw new Error("API_KEY environment variable is not set.");
-    }
-
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     const imagePart = await fileToGenerativePart(file);
